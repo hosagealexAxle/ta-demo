@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technician Assistant</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f1a0f;
+            color: #e8e0d0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Login screen */
+        #login-screen {
+            text-align: center;
+            padding: 2rem;
+        }
+        #login-screen .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1a3a1a, #2d5a2d);
+            border: 2px solid #4a8a4a;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 28px;
+            font-weight: bold;
+            color: #8fcf8f;
+        }
+        #login-screen h1 {
+            color: #8fcf8f;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        #login-screen p {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+        #login-screen .form-group {
+            background: #1a2a1a;
+            border: 1px solid #2d4a2d;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+        #login-screen input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #f5f0e8;
+            border: 1px solid #d0c8b8;
+            border-radius: 8px;
+            font-size: 1rem;
+            color: #333;
+            margin-bottom: 1rem;
+            outline: none;
+        }
+        #login-screen input:focus {
+            border-color: #4a8a4a;
+            box-shadow: 0 0 0 2px rgba(74, 138, 74, 0.3);
+        }
+        #login-screen button {
+            width: 100%;
+            padding: 12px;
+            background: #f5f0e8;
+            border: 1px solid #d0c8b8;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        #login-screen button:hover { background: #e8e0d0; }
+        #login-screen .error {
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+            display: none;
+        }
+
+        /* Video screen */
+        #video-screen {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            padding: 1.5rem;
+        }
+        #video-screen header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #2d4a2d;
+        }
+        #video-screen header .logo-sm {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1a3a1a, #2d5a2d);
+            border: 1px solid #4a8a4a;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #8fcf8f;
+            flex-shrink: 0;
+        }
+        #video-screen header h1 {
+            color: #8fcf8f;
+            font-size: 1.25rem;
+            flex-grow: 1;
+        }
+        #video-screen header span {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        .video-container {
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            margin-bottom: 1.5rem;
+        }
+        video {
+            width: 100%;
+            display: block;
+        }
+        .info-bar {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            padding: 1rem 1.5rem;
+            background: #1a2a1a;
+            border: 1px solid #2d4a2d;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            color: #999;
+        }
+        .info-bar .tag {
+            background: #2d4a2d;
+            color: #8fcf8f;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: #555;
+            font-size: 0.8rem;
+            padding-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="login-screen">
+        <div class="logo">TA</div>
+        <h1>Technician Assistant</h1>
+        <p>Enter password to view the demo</p>
+        <div class="form-group">
+            <input type="password" id="password" placeholder="Enter password" autocomplete="off">
+            <button onclick="checkPassword()">ENTER</button>
+            <div class="error" id="error-msg">Incorrect password</div>
+        </div>
+    </div>
+
+    <div id="video-screen">
+        <header>
+            <div class="logo-sm">TA</div>
+            <h1>Technician Assistant Demo</h1>
+            <span>7 min 14 sec</span>
+        </header>
+        <div class="video-container">
+            <video id="demo-video" controls preload="metadata" playsinline>
+                <source src="demo.mov" type="video/mp4">
+                Your browser does not support video playback.
+            </video>
+        </div>
+        <div class="info-bar">
+            <span><span class="tag">SANDBOX</span> Sample accounts &amp; simulated integrations</span>
+            <span>Work Orders &bull; Parts &bull; Schedule &bull; Notifications &bull; AI Assistant</span>
+            <span>Built by Alex Hosage</span>
+        </div>
+        <footer>Technician Assistant &mdash; Field Service Management</footer>
+    </div>
+
+    <script>
+        const HASH = 'beeb6270ef25c96261ee3afe627bb9b451936637';
+
+        async function sha1(str) {
+            const buf = await crypto.subtle.digest('SHA-1',
+                new TextEncoder().encode(str));
+            return Array.from(new Uint8Array(buf))
+                .map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        async function checkPassword() {
+            const input = document.getElementById('password').value;
+            const hash = await sha1(input);
+            if (hash === HASH) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('video-screen').style.display = 'block';
+                sessionStorage.setItem('ta_auth', '1');
+            } else {
+                const err = document.getElementById('error-msg');
+                err.style.display = 'block';
+                document.getElementById('password').value = '';
+                setTimeout(() => err.style.display = 'none', 3000);
+            }
+        }
+
+        document.getElementById('password').addEventListener('keydown', e => {
+            if (e.key === 'Enter') checkPassword();
+        });
+
+        if (sessionStorage.getItem('ta_auth') === '1') {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('video-screen').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
